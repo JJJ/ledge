@@ -12,6 +12,7 @@ source scripts/lib.sh
 source scripts/apt.sh
 source scripts/ssh.sh
 source scripts/user.sh
+source scripts/handoff.sh
 source scripts/sysctl.sh
 source scripts/firewall.sh
 source scripts/wireguard.sh
@@ -25,4 +26,5 @@ ledge_configure_sysctl
 ledge_configure_nftables
 ledge_prepare_wireguard
 
+ledge_handoff_repository
 ledge_log "Install complete"

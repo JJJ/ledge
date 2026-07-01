@@ -13,7 +13,7 @@ ledge_install_packages() {
     tcpdump \
     unattended-upgrades \
     vim \
-    wireguard
+    wireguard rsync
 }
 
 ledge_configure_unattended_upgrades() {
