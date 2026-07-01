@@ -1,0 +1,8 @@
+---
+- name: Configure Ledge
+  hosts: ledge
+  become: true
+  tasks:
+    - name: Placeholder
+      ansible.builtin.debug:
+        msg: "Ledge Ansible support coming soon. Use ./install.sh for now."

@@ -1,0 +1,12 @@
+.DS_Store
+*.log
+*.swp
+*.swo
+.env
+.env.*
+!/templates/*.env
+
+# Secrets
+*.key
+*.pem
+wg0.conf
