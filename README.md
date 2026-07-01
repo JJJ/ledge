@@ -22,7 +22,7 @@ Ledge owns the public IP.
 
 ## Target
 
-- Ubuntu 24.04 LTS
+- Ubuntu 26.04 LTS
 - Small VPS with one public IPv4 address
 - One or more private machines connecting over WireGuard
 
