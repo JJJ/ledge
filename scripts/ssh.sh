@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 ledge_configure_ssh() {
-  ledge_log "Hardening SSH"
+	ledge_log "Hardening SSH"
 
-  install -d -m 0755 /etc/ssh/sshd_config.d
+	install -d -m 0755 /etc/ssh/sshd_config.d
 
-  cat >/etc/ssh/sshd_config.d/99-ledge.conf <<'SSHCONF'
-PermitRootLogin no
+	cat >/etc/ssh/sshd_config.d/99-ledge.conf <<'SSHCONF'
+# Ledge bootstrap phase:
+# Keep root SSH key login available until an admin user exists and is verified.
+PermitRootLogin prohibit-password
 PasswordAuthentication no
 KbdInteractiveAuthentication no
 ChallengeResponseAuthentication no
@@ -17,6 +19,6 @@ ClientAliveInterval 300
 ClientAliveCountMax 2
 SSHCONF
 
-  sshd -t
-  systemctl reload ssh || systemctl restart ssh
+	sshd -t
+	systemctl reload ssh || systemctl restart ssh
 }
