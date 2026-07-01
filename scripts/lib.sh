@@ -22,7 +22,7 @@ ledge_require_ubuntu() {
     exit 1
   fi
 
-  if [[ "${VERSION_ID:-}" != "24.04" ]]; then
-    ledge_warn "Expected Ubuntu 24.04. Found: ${PRETTY_NAME:-unknown}"
+  if [[ "${VERSION_ID:-}" != "26.04" ]]; then
+    ledge_warn "Expected Ubuntu 26.04. Found: ${PRETTY_NAME:-unknown}"
   fi
 }
