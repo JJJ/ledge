@@ -11,6 +11,7 @@ fi
 source scripts/lib.sh
 source scripts/apt.sh
 source scripts/ssh.sh
+source scripts/user.sh
 source scripts/sysctl.sh
 source scripts/firewall.sh
 source scripts/wireguard.sh
@@ -18,6 +19,7 @@ source scripts/wireguard.sh
 ledge_require_ubuntu
 ledge_install_packages
 ledge_configure_unattended_upgrades
+ledge_configure_admin_user
 ledge_configure_ssh
 ledge_configure_sysctl
 ledge_configure_nftables
