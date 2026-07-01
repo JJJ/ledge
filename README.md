@@ -1,39 +1,79 @@
 # Ledge
 
-**Light Edge Server**
+> **Light Edge Server**
 
-Ledge transforms a minimal Ubuntu server into a secure edge gateway.
+Ledge bootstraps a fresh Ubuntu LTS server into a secure, reproducible edge gateway.
 
-## Features
+## Requirements
 
-- WireGuard
-- nftables
-- Automatic updates
-- SSH hardening
-- IPv4 forwarding
-- Small footprint
-- Idempotent-ish configuration
+- Ubuntu 26.04 LTS or newer
+- Root SSH access
+- Internet connectivity
+
+## Bootstrap
+
+On a brand new server, ssh as `root` and:
+
+    apt update
+    apt install -y git
+
+    mkdir -p /opt/ledge
+    cd /opt/ledge
+
+    git clone https://github.com/JJJ/ledge.git .
+
+    chmod +x bootstrap.sh configure.sh lock-root.sh
+
+    ./bootstrap.sh
+
+Bootstrap will:
+
+- Update Ubuntu
+- Install packages
+- Configure automatic updates
+- Create the administrator account
+- Configure SSH
+- Copy the repository to the administrator user's home
+- Remove the temporary bootstrap copy
+
+## Continue
+
+Reconnect as the administrator user:
+
+    ssh jjj@<server>
+
+Then:
+
+    cd ~/Development/ledge
+    git pull
+    sudo ./configure.sh
+
+## Lock root
+
+Once you've verified the administrator account:
+
+    sudo ./lock-root.sh
+
+## Lifecycle
+
+    Fresh Ubuntu
+        |
+        v
+    bootstrap.sh
+        |
+        v
+    ~/Development/ledge
+        |
+        v
+    configure.sh
+        |
+        v
+    lock-root.sh
 
 ## Philosophy
 
-Applications belong elsewhere.
-
-Ledge owns the public IP.
-
-## Target
-
-- Ubuntu 26.04 LTS
-- Small VPS with one public IPv4 address
-- One or more private machines connecting over WireGuard
-
-## Quick start
-
-```bash
-sudo ./bootstrap.sh
-```
-
-Then rerun configuration safely with:
-
-```bash
-sudo ./install.sh
-```
+- Bootstrap once.
+- Configure forever.
+- SSH as your administrator, never root.
+- Be reproducible.
+- Stay cloud agnostic.
