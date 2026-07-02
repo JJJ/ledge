@@ -3,7 +3,7 @@
 ledge_lock_root_ssh() {
 	ledge_log "Locking root SSH login"
 
-	local admin_user="${LEDGE_ADMIN_USER:-jjj}"
+	local admin_user="${LEDGE_ADMIN_USER}"
 
 	if ! id "${admin_user}" >/dev/null 2>&1; then
 		echo "Admin user '${admin_user}' does not exist. Refusing to disable root SSH." >&2

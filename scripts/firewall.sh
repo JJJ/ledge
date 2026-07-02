@@ -3,7 +3,7 @@
 ledge_configure_nftables() {
   ledge_log "Configuring nftables baseline"
 
-  cat >/etc/nftables.conf <<'NFT'
+  cat >/etc/nftables.conf <<NFT
 #!/usr/sbin/nft -f
 
 flush ruleset
@@ -24,7 +24,7 @@ table inet filter {
     tcp dport 22 accept
 
     # WireGuard. Keep this closed until configured if desired.
-    udp dport 51820 accept
+    udp dport ${LEDGE_WIREGUARD_PORT} accept
   }
 
   chain forward {
@@ -34,8 +34,8 @@ table inet filter {
     ct state established,related accept
 
     # WireGuard forwarding rules will live here.
-    iifname "wg0" accept
-    oifname "wg0" accept
+    iifname "${LEDGE_WIREGUARD_INTERFACE}" accept
+    oifname "${LEDGE_WIREGUARD_INTERFACE}" accept
   }
 
   chain output {
@@ -58,7 +58,7 @@ table ip nat {
     policy accept;
 
     # Masquerade WireGuard clients out via the public interface.
-    ip saddr 10.44.0.0/24 masquerade
+    ip saddr ${LEDGE_WIREGUARD_NETWORK} masquerade
   }
 }
 NFT

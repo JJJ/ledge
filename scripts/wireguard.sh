@@ -11,14 +11,14 @@ ledge_prepare_wireguard() {
     chmod 0644 /etc/wireguard/server.pub
   fi
 
-  if [[ ! -f /etc/wireguard/wg0.conf ]]; then
+  if [[ ! -f /etc/wireguard/${LEDGE_WIREGUARD_INTERFACE}.conf ]]; then
     local private_key
     private_key="$(cat /etc/wireguard/server.key)"
 
-    cat >/etc/wireguard/wg0.conf <<WGCONF
+    cat >/etc/wireguard/${LEDGE_WIREGUARD_INTERFACE}.conf <<WGCONF
 [Interface]
-Address = 10.44.0.1/24
-ListenPort = 51820
+Address = ${LEDGE_WIREGUARD_ADDRESS}
+ListenPort = ${LEDGE_WIREGUARD_PORT}
 PrivateKey = ${private_key}
 
 # Add Pi peers below, for example:
@@ -27,11 +27,11 @@ PrivateKey = ${private_key}
 # AllowedIPs = 10.44.0.2/32
 WGCONF
 
-    chmod 0600 /etc/wireguard/wg0.conf
+    chmod 0600 /etc/wireguard/${LEDGE_WIREGUARD_INTERFACE}.conf
   fi
 
-  systemctl enable wg-quick@wg0
-  systemctl restart wg-quick@wg0
+  systemctl enable wg-quick@${LEDGE_WIREGUARD_INTERFACE}
+  systemctl restart wg-quick@${LEDGE_WIREGUARD_INTERFACE}
 
   ledge_log "WireGuard public key"
   cat /etc/wireguard/server.pub

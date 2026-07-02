@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 ledge_handoff_repository() {
-	local username="${LEDGE_ADMIN_USER:-jjj}"
+	local username="${LEDGE_ADMIN_USER}"
 	local source_dir="${LEDGE_SOURCE_DIR:-$(pwd)}"
-	local target_parent="/home/${username}/Development"
-	local target_dir="${target_parent}/ledge"
+	local target_parent="/home/${username}/${LEDGE_DEVELOPMENT_DIR}"
+	local target_dir="${target_parent}/${LEDGE_REPOSITORY_NAME}"
 
 	ledge_log "Handing off repository to ${username}: ${target_dir}"
 

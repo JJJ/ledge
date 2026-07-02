@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ledge_configure_admin_user() {
-	local username="${LEDGE_ADMIN_USER:-jjj}"
+	local username="${LEDGE_ADMIN_USER}"
 	local source_keys="/root/.ssh/authorized_keys"
 	local target_home="/home/${username}"
 	local target_ssh="${target_home}/.ssh"
